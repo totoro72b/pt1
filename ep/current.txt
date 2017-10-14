@@ -1,0 +1,4 @@
+check nosetests: 
+why nosetests works iwthout __init__.py,
+but needs it when noestests tests.test_filename
+ctrl+P
