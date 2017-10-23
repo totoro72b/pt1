@@ -9,7 +9,7 @@ new_dict = {'a': 10, 'c': 10}  # only a exists in current
 
 # approach 1: passing a plain function
 def log_missing():
-    print 'missing entry!'
+    print('missing entry!')
     return 0
 
 
@@ -27,7 +27,7 @@ def log_missing_w_closure(current, new_dict):
     counter = [0]
 
     def log_missing():
-        print 'missed!'
+        print('missed!')
         counter[0] += 1  #TODO why can't  counter+=1???
         return 0
 
