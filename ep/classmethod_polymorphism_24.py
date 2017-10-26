@@ -12,7 +12,6 @@ class BaseInput(object):
         """Each subclass needs to provide its own generate_input method"""
         raise NotImplementedError
 
-
 class FileInput(BaseInput):
     """File Input"""
     def __init__(self, path):
@@ -24,7 +23,7 @@ class FileInput(BaseInput):
 
     @classmethod
     def generate_inputs(cls, params):
-        #TODO what's advantage of this over non-classmethod? can still do obj.generate_inputs
+        # you can call this witout knowing how to make an object
         file_dir = params['file_dir']
         inputs = []
         for filename in os.listdir(file_dir):
