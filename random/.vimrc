@@ -3,40 +3,7 @@ filetype off                  " required
 set number
 set clipboard=unnamed
 set encoding=utf-8
-
-
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
-
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
 filetype plugin indent on    " required
-
-" Enable folding
-set foldmethod=indent
-set foldnestmax=2
-set foldlevel=99
-set foldlevelstart=0
-let g:SimpylFold_docstring_preview = 1
-let g:SimpylFold_fold_docstring = 0
-let g:SimpylFold_fold_import = 0
-
-" Enable folding with the spacebar
-nnoremap <space> za
-
-Plugin 'tmhedberg/SimpylFold'
-
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
@@ -54,9 +21,45 @@ au BufNewFile,BufRead *.py
 
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
 
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+call vundle#begin()
+" ===== Vundle Plugins ======
+Plugin 'gmarik/Vundle.vim'
+Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kshenoy/vim-signature'
+Plugin 'pangloss/vim-javascript'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'w0rp/ale'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+" ===== END OF Vundle Plugins ======
+call vundle#end()            " required
+
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" Enable folding
+set foldmethod=indent
+set foldnestmax=2
+set foldlevel=99
+set foldlevelstart=0
+let g:SimpylFold_docstring_preview = 1
+let g:SimpylFold_fold_docstring = 0
+let g:SimpylFold_fold_import = 0
+
+" w0rp/ale settings
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+
+" Enable folding with the spacebar
+nnoremap <space> za
 
 "python with virtualenv support
 py << EOF
@@ -68,21 +71,14 @@ if 'VIRTUAL_ENV' in os.environ:
   execfile(activate_this, dict(__file__=activate_this))
 EOF
 
-Plugin 'scrooloose/syntastic'
-Plugin 'nvie/vim-flake8'
 let python_highlight_all=1
 syntax on
-
-Plugin 'scrooloose/nerdtree'
 
 autocmd VimEnter * silent !echo -ne "\033]1337;SetKeyLabel=F7=Flake8\a"
 autocmd VimEnter * silent !echo -ne "\033]1337;SetKeyLabel=F1=Help\a"
 autocmd VimEnter * silent !echo -ne "\033]1337;SetKeyLabel=F1=NERDTree\a"
 autocmd VimLeave * silent !echo -ne "\033]1337;PopKeyLabels\a"
 map <silent> <F2> :NERDTreeToggle<CR>
-
-Plugin 'kshenoy/vim-signature'
-Plugin 'pangloss/vim-javascript'
 
 " Debug shortcuts
 map <silent> <leader>pdb oimport pdb; pdb.set_trace()<esc>
@@ -92,11 +88,6 @@ map <silent> <leader>debugger odebugger // eslint-disable-line<esc>
 " Make backspace work
 set backspace=indent,eol,start
 
-" vim color scheme
-Plugin 'flazz/vim-colorschemes'
-
-" Control p
-Plugin 'ctrlpvim/ctrlp.vim'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
@@ -122,3 +113,6 @@ endfunction
 
 nmap <silent> <leader>q :call MarkWindowSwap()<CR>
 nmap <silent> <leader>w :call DoWindowSwap()<CR>
+
+" ignore pyc files
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
