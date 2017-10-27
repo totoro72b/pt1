@@ -15,7 +15,7 @@ def log_missing():
 
 d = defaultdict(log_missing, current)
 
-for k, v in new_dict.iteritems():  # should trigger one print message
+for k, v in new_dict.items():  # should trigger one print message
     d[k] += v
 
 expected = {'a': 11, 'b': 2, 'c': 10}
@@ -32,7 +32,7 @@ def log_missing_w_closure(current, new_dict):
         return 0
 
     d = defaultdict(log_missing, current)
-    for k, v in new_dict.iteritems():
+    for k, v in new_dict.items():
         d[k] += v
 
     return d, counter[0]

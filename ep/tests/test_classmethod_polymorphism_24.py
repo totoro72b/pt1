@@ -37,5 +37,4 @@ class TestClassmethodPolymorphism(unittest.TestCase):
         params = {'file_dir': self.dir_path}
         total = map_reduce(FileInput, LineCounterWorker, params)
         print ('total is {}'.format(total))
-        import pdb; pdb.set_trace()
         self.assertEqual(total, sum(lst))

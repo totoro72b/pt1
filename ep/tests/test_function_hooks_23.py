@@ -24,7 +24,7 @@ class TestFunctionHooks(unittest.TestCase):
         counter = MissedCounter()
 
         d = defaultdict(counter.missing, self.current)
-        for k, v in self.new_dict.iteritems():
+        for k, v in self.new_dict.items():
             d[k] += v
 
         self.assertEqual(counter.missed, 1)
@@ -35,7 +35,7 @@ class TestFunctionHooks(unittest.TestCase):
         self.assertTrue(callable(counter))
 
         d = defaultdict(counter, self.current)
-        for k, v in self.new_dict.iteritems():
+        for k, v in self.new_dict.items():
             d[k] += v
 
         self.assertEqual(counter.missed, 1)
