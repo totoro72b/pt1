@@ -44,6 +44,18 @@ call vundle#end()            " required
 
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" totoro settings
+nnoremap fjs :%! python -m json.tool<CR>
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C
+nnoremap <C-H> <C-W>h
+nnoremap <C-L> <C-W>l
+nnoremap <LEADER>s :update<CR>
+nnoremap wq :update<CR>
+inoremap wq <ESC>:update<CR>
+inoremap <C-L> <ESC>
+inoremap jk <ESC>
+inoremap sf <ESC>
 
 " Enable folding
 set foldmethod=indent
