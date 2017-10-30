@@ -1,0 +1,21 @@
+do gitconf bare repo and init from local??
+zfz shortcuts
+YCM
+make window switch speed faster in mac osx
+
+try:
+git br | fzf
+
+fzf need command shorts for
+Files
+GFiles
+Buffers
+Lines
+BLines
+Tags
+BTags
+Windows
+History
+Ag -- YES - ag
+';;;;;;;;;;;;
+
