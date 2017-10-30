@@ -42,20 +42,40 @@ Plugin 'vim-airline/vim-airline-themes'
 " ===== END OF Vundle Plugins ======
 call vundle#end()            " required
 
+" Plug plugins
+call plug#begin('~/.vim/plugged')
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+" Initialize plugin system
+call plug#end()
+
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
 " totoro settings
+
+"
+" use comma as the leader key
+let mapleader=","
 nnoremap fjs :%! python -m json.tool<CR>
+" window shortcuts
 nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C
+nnoremap <C-K> <C-W>k
 nnoremap <C-H> <C-W>h
 nnoremap <C-L> <C-W>l
-nnoremap <LEADER>s :update<CR>
-nnoremap wq :update<CR>
-inoremap wq <ESC>:update<CR>
-inoremap <C-L> <ESC>
+" save stuff
+" nnoremap <LEADER>s :update<CR>
+" TODO add white space stripping
+inoremap <leader>s <ESC>:update<CR>
+nnoremap <leader>s :update<CR>
+" experimental
+nnoremap ; :
+
+" remap tab to escape
+ 
+" escape stuff
 inoremap jk <ESC>
-inoremap sf <ESC>
+inoremap sd <ESC>
 
 " Enable folding
 set foldmethod=indent
@@ -72,16 +92,6 @@ let g:ale_sign_warning = '--'
 
 " Enable folding with the spacebar
 nnoremap <space> za
-
-"python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
 
 let python_highlight_all=1
 syntax on
@@ -123,8 +133,8 @@ function! DoWindowSwap()
     exe 'hide buf' markedBuf
 endfunction
 
-nmap <silent> <leader>q :call MarkWindowSwap()<CR>
-nmap <silent> <leader>w :call DoWindowSwap()<CR>
+" nmap <silent> <leader>q :call MarkWindowSwap()<CR>
+" nmap <silent> <leader>w :call DoWindowSwap()<CR>
 
 " ignore pyc files
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
