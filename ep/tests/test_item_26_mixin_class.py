@@ -1,7 +1,9 @@
 import unittest
 import copy
 
-from item_26_multiple_inheritance_for_mixin_only import ToDictMixin
+from item_26_multiple_inheritance_for_mixin_only import (ToDictMixin,
+                                                         BinaryTreeNode,
+                                                         BinaryTreeWithParent)
 
 class TestToDictMixin(unittest.TestCase):
     def test_basic_types(self):
@@ -51,3 +53,45 @@ class TestToDictMixin(unittest.TestCase):
         expected['b'] = base
 
         self.assertEqual(obj.to_dict(), expected)
+
+    def test_on_binary_tree(self):
+        """Test on binary tree structure"""
+
+        right_branch = BinaryTreeNode(7, BinaryTreeNode(6), BinaryTreeNode(8))
+        tree = BinaryTreeNode(5, BinaryTreeNode(1), right_branch)
+        expected = {'value': 5,
+                    'left': { 'value': 1,
+                             'left': None,
+                             'right': None},
+                    'right':{'value': 7,
+                             'left': { 'value': 6,
+                                       'left': None,
+                                       'right': None},
+                             'right': { 'value': 8,
+                                       'left': None,
+                                       'right': None}
+                            }
+                   }
+        self.assertEqual(tree.to_dict(), expected)
+
+    def test_binary_tree_with_parent1(self):
+        """Test binary tree with parent"""
+        root = BinaryTreeWithParent(1)
+        left = BinaryTreeWithParent(2, parent=root)
+        right = BinaryTreeWithParent(3, parent=root)
+        root.left = left
+        root.right = right
+        expected = {'value': 1,
+                    'left': {'value': 2,
+                             'left': None,
+                             'right': None,
+                              'parent': 1
+                            },
+                    'right':{'value': 3,
+                             'left': None,
+                             'right': None,
+                              'parent': 1
+                            },
+                    'parent': None
+                   }
+        self.assertEqual(root.to_dict(), expected)
