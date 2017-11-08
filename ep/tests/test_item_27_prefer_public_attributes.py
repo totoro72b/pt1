@@ -63,3 +63,4 @@ class TestPublicVsPrivateAttributes(unittest.TestCase):
 
         v = GoodSubValueClass()
         self.assertEqual(v.get_value(), 5)  # NOTE subclass no longer overrides parent's value here
+        self.assertNotEqual(v.get_value(), v._GoodSubValueClass__value)  # NOTE subclass no longer overrides parent's value here
