@@ -1,3 +1,4 @@
+import json
 from collections import abc
 # item 26: use muptiple inheritance for mixin only
 # a mixin that transforms a python object to a dictionary that's ready for seralization
@@ -39,5 +40,49 @@ class BinaryTreeWithParent(BinaryTreeNode):
         if key == 'parent' and isinstance(obj, BinaryTreeNode):
             return obj.value
         return super()._traverse(key, obj)
-        # p2: do i have to pass the key inorder to know the key?
 
+
+class NamedSubTree(ToDictMixin):
+    def __init__(self, name, tree):
+        self.name = name
+        self.tree = tree
+
+
+# Mixins can also play together
+class ToJsonMixin(object):
+    @classmethod
+    def from_json(cls, kwargs):
+        """given kwargs in json format, get it into dictionary format"""
+        kwargs = json.loads(kwargs)
+        return cls(**kwargs)
+
+    def to_json(self):
+        d = self.to_dict()
+        return json.dumps(d)
+
+
+class BinaryTreeWithJson(BinaryTreeNode, ToJsonMixin):
+    pass
+
+class EqualityMixin(object):
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
+
+
+class Switch(EqualityMixin):
+    def __init__(self, ports, speed):
+        self.ports = ports
+        self.speed = speed
+
+
+class Machine(EqualityMixin):
+    def __init__(self, ram, cpu, disk):
+        self.ram = ram
+        self.cpu = cpu
+        self.disk = disk
+
+
+class DatacenterRack(ToJsonMixin, ToDictMixin,  EqualityMixin):
+    def __init__(self, switch, machines):
+        self.switch = Switch(**switch)
+        self.machines = [Machine(**kwargs) for kwargs in machines]
