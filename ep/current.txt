@@ -1,18 +1,11 @@
 EP: wrap up class
 
-* ITEM 25: INITIALIZE PARENT CLASSES WITH SUPER -- 9
-ITEM 26: USE MULTIPLE INHERITANCE ONLY FOR MIX-IN UTILITY CLASSES
+x ITEM 25: INITIALIZE PARENT CLASSES WITH SUPER -- 9
+x ITEM 26: USE MULTIPLE INHERITANCE ONLY FOR MIX-IN UTILITY CLASSES
 
-ITEM 27: PREFER PUBLIC ATTRIBUTES OVER PRIVATE ONES
-ITEM 28: INHERIT FROM COLLECTIONS.ABC FOR CUSTOM CONTAINER TYPES
+x ITEM 27: PREFER PUBLIC ATTRIBUTES OVER PRIVATE ONES
+* ITEM 28: INHERIT FROM COLLECTIONS.ABC FOR CUSTOM CONTAINER TYPES
 
 -------- later ------
-port to python3
-try plugins: ctrlP and browser stuff, and max suggestions
-contrlP: how to change directory?
-setting to change window easily
-map caps to control. 
-use jk to switch t onormal mode
-return of the ETL bot
-amazon costume
-
+do it in a way seems natural to you, and also learn from smart people.
+no need to force unnatural way simply because it somehow seems "should be".
