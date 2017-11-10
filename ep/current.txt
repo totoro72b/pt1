@@ -6,6 +6,11 @@ x ITEM 26: USE MULTIPLE INHERITANCE ONLY FOR MIX-IN UTILITY CLASSES
 x ITEM 27: PREFER PUBLIC ATTRIBUTES OVER PRIVATE ONES
 * ITEM 28: INHERIT FROM COLLECTIONS.ABC FOR CUSTOM CONTAINER TYPES
 
--------- later ------
+--------------
+helpful
+-------------
+visualization,
+not on couch(or stting) for too long. keep moving.
+log in misses book:
 do it in a way seems natural to you, and also learn from smart people.
 no need to force unnatural way simply because it somehow seems "should be".

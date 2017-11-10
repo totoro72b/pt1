@@ -32,23 +32,16 @@ class IndexableNode(BinaryNode):
     count = 0
 
     def _traversal(self, node, n):
-        if not node:
-            return False, node
-        print('node=', node.value)
-
         if node.left:
-            print('go left')
             found, x = self._traversal(node.left, n)
             if found:
                 return found, x
         self.count += 1
         if self.count == n:
-            print('inc count, bingo now=', self.count)
-            return (True, node)
+            return True, node
 
         if node.right:
-            print('go right')
-            found, x = self._traversal(node.left, n)
+            found, x = self._traversal(node.right, n)
             if found:
                 return found, x
         return False, node

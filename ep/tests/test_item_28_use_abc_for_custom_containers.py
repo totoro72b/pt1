@@ -23,7 +23,7 @@ class TestABC(unittest.TestCase):
         root.left = IndexableNode(1, None, IndexableNode(2))
         root.right = IndexableNode(4)
 
-        # self.assertEqual(root[0].value, 1)
+        self.assertEqual(root[0].value, 1)
         self.assertEqual(root[1].value, 2)
-        # self.assertEqual(root[2].value, 3)
-        # self.assertEqual(root[3].value, 4)
+        self.assertEqual(root[2].value, 3)
+        self.assertEqual(root[3].value, 4)
