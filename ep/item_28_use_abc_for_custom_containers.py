@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 # when need to define customized container types, inherit from abc to make sure you don't miss shit
 
 # by subclassing from list, you get all of list's standard functionalities. no need to use abc
@@ -29,27 +30,52 @@ class BinaryNode(object):
 
 
 class IndexableNode(BinaryNode):
-    count = 0
+    num = 0
+
+    def search(self, node, index):
+        """return (found, count) the node at the given index if exists, otherwise (False, None)
+        index is zero based.
+        """
+        self.num = 0
+        return self._traversal(self, index+1)
+
 
     def _traversal(self, node, n):
         if node.left:
             found, x = self._traversal(node.left, n)
             if found:
                 return found, x
-        self.count += 1
-        if self.count == n:
-            return True, node
+        self.num += 1
+        if self.num == n:
+            return node, self.num
 
         if node.right:
             found, x = self._traversal(node.right, n)
             if found:
                 return found, x
-        return False, node
+        return None, self.num
 
     def __getitem__(self, index):
         """return the ith node of the binary tree (zero indexed)"""
-        self.count = 0
-        found, node = self._traversal(self, index+1)
+        found, count = self.search(self, index)
         if found:
-            return node
+            return found.value
         raise IndexError
+
+
+# list interface also requires __len__
+class SequenceNode(IndexableNode):
+    def __len__(self):
+        found, count = self.search(self, -1)
+        return count
+
+
+# we still need to define stuff like count, index
+# with abc's sequence interface,  we can get it for free!
+class FreebieNode(SequenceNode, Sequence):
+    pass
+
+
+class NotDoneYet(Sequence):
+    pass
+
