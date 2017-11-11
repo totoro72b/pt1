@@ -1,16 +1,22 @@
-EP: wrap up class
-
-x ITEM 25: INITIALIZE PARENT CLASSES WITH SUPER -- 9
-x ITEM 26: USE MULTIPLE INHERITANCE ONLY FOR MIX-IN UTILITY CLASSES
-
-x ITEM 27: PREFER PUBLIC ATTRIBUTES OVER PRIVATE ONES
-* ITEM 28: INHERIT FROM COLLECTIONS.ABC FOR CUSTOM CONTAINER TYPES
-
+start meta!
+* ITEM 29: USE PLAIN ATTRIBUTES INSTEAD OF GET AND SET METHODS
+ITEM 30: CONSIDER @PROPERTY INSTEAD OF REFACTORING ATTRIBUTES
+ITEM 31: USE DESCRIPTORS FOR REUSABLE @PROPERTY METHODS
+ITEM 32: USE __GETATTR__, __GETATTRIBUTE__, AND __SETATTR__ FOR LAZY ATTRIBUTES
+ITEM 33: VALIDATE SUBCLASSES WITH METACLASSES
+ITEM 34: REGISTER CLASS EXISTENCE WITH METACLASSES
+ITEM 35: ANNOTATE CLASS ATTRIBUTES WITH METACLASSES
 --------------
 helpful
 -------------
-visualization,
-not on couch(or stting) for too long. keep moving.
-log in misses book:
+visualization - 26.2,  13,  6, 3, 2, 1
+not on couch(or sitting) for too long. keep moving.
+log in misses book
 do it in a way seems natural to you, and also learn from smart people.
 no need to force unnatural way simply because it somehow seems "should be".
+-----
+after done:
+install pretty font!
+
+gruvbox background for browser, so it's soft
+----------

@@ -2,6 +2,7 @@
 import os
 import threading
 
+
 class BaseInput(object):
     """Base class for Input"""
     def read(self):
@@ -11,6 +12,7 @@ class BaseInput(object):
     def generate_inputs(cls, params):
         """Each subclass needs to provide its own generate_input method"""
         raise NotImplementedError
+
 
 class FileInput(BaseInput):
     """File Input"""
