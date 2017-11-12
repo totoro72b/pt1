@@ -1,22 +1,10 @@
 start meta!
-* ITEM 29: USE PLAIN ATTRIBUTES INSTEAD OF GET AND SET METHODS
-ITEM 30: CONSIDER @PROPERTY INSTEAD OF REFACTORING ATTRIBUTES
-ITEM 31: USE DESCRIPTORS FOR REUSABLE @PROPERTY METHODS
+x ITEM 29: USE PLAIN ATTRIBUTES INSTEAD OF GET AND SET METHODS
+? ITEM 30: CONSIDER @PROPERTY INSTEAD OF REFACTORING ATTRIBUTES
+* ITEM 31: USE DESCRIPTORS FOR REUSABLE @PROPERTY METHODS
 ITEM 32: USE __GETATTR__, __GETATTRIBUTE__, AND __SETATTR__ FOR LAZY ATTRIBUTES
 ITEM 33: VALIDATE SUBCLASSES WITH METACLASSES
 ITEM 34: REGISTER CLASS EXISTENCE WITH METACLASSES
 ITEM 35: ANNOTATE CLASS ATTRIBUTES WITH METACLASSES
 --------------
-helpful
--------------
-visualization - 26.2,  13,  6, 3, 2, 1
-not on couch(or sitting) for too long. keep moving.
-log in misses book
-do it in a way seems natural to you, and also learn from smart people.
-no need to force unnatural way simply because it somehow seems "should be".
------
-after done:
-install pretty font!
-
-gruvbox background for browser, so it's soft
-----------
+item 30: got the idea of using property, but do not understand the leaky bucket thing. what he's saying does not make sense. ==> move on to item 31
