@@ -1,7 +1,10 @@
 import unittest
 
 from item_31_use_descriptors_for_resuable_property import (ExamNoDescriptor,
-                                                           Exam)
+                                                           Exam,
+                                                           ExamFailToFix,
+                                                           ExamFixed,
+                                                           GradeBad)
 
 
 class TestDescriptors(unittest.TestCase):
@@ -24,7 +27,7 @@ class TestDescriptors(unittest.TestCase):
 
 
     def test_bad_grades(self):
-        """Test that bad grades break as expected"""
+        """Test that BadGrade breaks as expected"""
 
         exam1 = Exam()
         exam2 = Exam()
@@ -33,5 +36,27 @@ class TestDescriptors(unittest.TestCase):
 
         self.assertEqual(exam1.math_grade, 10)
 
-        with self.assertRaises(AssertionError):
-            assert exam2.math_grade == 0  # breaks because of instance variables
+        self.assertEqual(exam2.math_grade, 10)  # bad! because of instance variables, exam2 value also got changed
+
+
+    def test_fail_to_fix(self):
+        """use GradeBad as instance variables does NOT solve the problem"""
+
+        exam1 = ExamFailToFix()
+        exam2 = ExamFailToFix()
+
+        exam1.math_grade = 10
+
+        self.assertEqual(exam1.math_grade, 10)
+        self.assertEqual(type(exam1.writing_grade), GradeBad)  # bad! the unassigned value is an instance of BadGrade!
+
+    def test_fixed_grades(self):
+        """Test that FixedGrade works as expected"""
+
+        exam1 = ExamFixed()
+        exam2 = ExamFixed()
+
+        exam1.math_grade = 10
+
+        self.assertEqual(exam1.math_grade, 10)
+        self.assertEqual(exam2.math_grade, 0)

@@ -9,5 +9,4 @@ ITEM 35: ANNOTATE CLASS ATTRIBUTES WITH METACLASSES
 --------------
 item 30: got the idea of using property, but do not understand the leaky bucket thing. what he's saying does not make sense. ==> move on to item 31
 
-TODO:
-just play with staticmethod thingy
+getting confused is part of the learning process.
