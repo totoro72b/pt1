@@ -43,7 +43,7 @@ class Polygon(object, metaclass=ValidatePolygon):
         return (self.sides - 2) * 180
 
 
-# uncomment, otherwise nothing in this file can be imported!
+# comment, otherwise nothing in this file can be imported!
 # class PolygonBad(Polygon):
     # """A class that defines a polygon"""
     # sides = 2
