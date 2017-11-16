@@ -60,7 +60,6 @@ class BetterSerializable(object):
 class Meta(type):
     def __new__(meta, name, bases, class_dict):
         cls = type.__new__(meta, name, bases, class_dict)
-        from nose.tools import set_trace; set_trace()
         register_class(cls)
         return cls
 
