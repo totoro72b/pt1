@@ -39,18 +39,20 @@ class Meta(type):
     def __new__(meta, name, bases, class_dict):  # mabc
         for k, v in class_dict.items():
             if isinstance(v, Field):  # why is it Field??
+                print('before assignment, dict={}'.format(v.__dict__))
                 v.internal_name = '_' + k
+                print('after assignment, dict={}'.format(v.__dict__))
 
-        cls  = type.__new__(meta, name, base_classes, class_dict)  # hmm still not sure how this works
+        cls  = type.__new__(meta, name, bases, class_dict)  # hmm still not sure how this works
         return cls
 
 
-class BetterRow(object, metalclass=Meta):
+class BetterRow(object, metaclass=Meta):
     pass
 
 
-class BetterDBRow(BetterRow):
-    foo = Field()
-    bar = Field()
+class Customer(BetterRow):
+    first_name = Field()
+    last_name = Field()
 
 
