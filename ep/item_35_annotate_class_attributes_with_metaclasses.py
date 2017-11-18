@@ -36,14 +36,14 @@ class Field(object):
 
 
 class Meta(type):
-    def __new__(meta, name, bases, class_dict):  # mabc
+    def __new__(meta, name, bases, class_dict):
         for k, v in class_dict.items():
-            if isinstance(v, Field):  # why is it Field??
-                print('before assignment, dict={}'.format(v.__dict__))
+            if isinstance(v, Field):
                 v.internal_name = '_' + k
-                print('after assignment, dict={}'.format(v.__dict__))
 
         cls  = type.__new__(meta, name, bases, class_dict)  # hmm still not sure how this works
+        # print('meta:{}\nname:{}\nbases:{}\nclass_dict:{}\ncls={}'.format(meta, name, bases, class_dict, cls))
+        # from nose.tools import set_trace; set_trace()
         return cls
 
 
@@ -51,8 +51,15 @@ class BetterRow(object, metaclass=Meta):
     pass
 
 
-class Customer(BetterRow):
+class Woo(BetterRow):
+    # NOTE
+    # silly for testing purposes, to show that Meta.__new__ is called for every layer of inheritance
+    # so it's called 3 times in this case. one for Customer (with base class = Woo,)
+    # one for Woo (with base class=BetterRow), one for BetterRow (with base class=object)
+    # can be seen in the print+nose in Meta
+    wow = 'muahaha'
+
+
+class Customer(Woo):
     first_name = Field()
     last_name = Field()
-
-
