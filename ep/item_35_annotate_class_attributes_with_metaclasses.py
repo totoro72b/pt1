@@ -61,5 +61,15 @@ class Woo(BetterRow):
 
 
 class Customer(Woo):
+    """NOTE Field is the descriptor class, and
+    the results from Field().__get__() is returned when calling customer.first_name
+    when customer.first_name = 'asdf' is called, field.__set__(customer_instance, 'asdf') is called,
+    so 'asdf' is assigned to the 'internal_name'('_first_name' in this case) of customer_instance.
+
+    NOTE: the 'internal_name' attribute of the customer_instance is stored in Field, initially
+    assigned by the Metaclass. so before everything starts, the field_instance for first_name
+    got assigned field.internal_name = '_first_name',
+    and the other field instance got field2.internal_name = '_last_name'
+    """
     first_name = Field()
     last_name = Field()
