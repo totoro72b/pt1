@@ -60,7 +60,8 @@ def run_openssl(data):
         ['openssl', 'enc', '-des3', '-pass', 'env:password'],
         env=env,
         stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE)
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE)  # need to set to PIPE to get other than None
     proc.stdin.write(data)
     proc.stdin.flush()  # make sure the child gets the input
     return proc
@@ -96,11 +97,12 @@ for i in range(3):
     proc = run_md5(proc.stdout)
     md5_proc.append(proc)
 
-# start them? or are they already started?
+# NOTE process already started. communicate() sorta "blocks" until it's done
 for p in ssl_proc:
     p.communicate()
 
 for p in md5_proc:
+    print('waiting to finish...')
     out, err = p.communicate()
     print('md5 result: %s' % out)
 
