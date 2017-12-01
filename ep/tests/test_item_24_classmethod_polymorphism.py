@@ -4,7 +4,7 @@ import unittest
 import tempfile
 import shutil
 
-from classmethod_polymorphism_24 import (map_reduce,
+from item_24_classmethod_polymorphism import (map_reduce,
                                          LineCounterWorker,
                                          FileInput)
 

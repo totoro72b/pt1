@@ -1,5 +1,5 @@
 import unittest
-from helper_classes_22 import Subject, Student, GradeBook
+from item_22_helper_classes import Subject, Student, GradeBook
 
 # tests for item 22 helper classes
 

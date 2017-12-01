@@ -1,6 +1,6 @@
 import unittest
 
-from init_parents_with_super_25 import TimesTwoPlusFiveBad, TimesTwoPlusFive
+from item_25_init_parents_with_super import TimesTwoPlusFiveBad, TimesTwoPlusFive
 
 
 class TestSuperParents(unittest.TestCase):

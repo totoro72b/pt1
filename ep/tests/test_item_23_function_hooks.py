@@ -2,7 +2,7 @@
 import unittest
 from collections import defaultdict
 
-from function_hook_23 import log_missing_w_closure, MissedCounter, CountMissing
+from item_23_function_hook import log_missing_w_closure, MissedCounter, CountMissing
 
 
 class TestFunctionHooks(unittest.TestCase):
