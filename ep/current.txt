@@ -1,13 +1,8 @@
-start meta!
-x ITEM 29: USE PLAIN ATTRIBUTES INSTEAD OF GET AND SET METHODS
-? ITEM 30: CONSIDER @PROPERTY INSTEAD OF REFACTORING ATTRIBUTES
-x ITEM 31: USE DESCRIPTORS FOR REUSABLE @PROPERTY METHODS
-  Q: why are __get__ and __set__ in Grade only called with they are class variables of Exam, but not when instance vars?
-ITEM 32: USE __GETATTR__, __GETATTRIBUTE__, AND __SETATTR__ FOR LAZY ATTRIBUTES
-ITEM 33: VALIDATE SUBCLASSES WITH METACLASSES
-ITEM 34: REGISTER CLASS EXISTENCE WITH METACLASSES
-ITEM 35: ANNOTATE CLASS ATTRIBUTES WITH METACLASSES
---------------
-item 30: got the idea of using property, but do not understand the leaky bucket thing. what he's saying does not make sense. ==> move on to item 31
-
 getting confused is part of the learning process.
+---------
+remaining for concurrency and parallelism chapter
+
+ITEM 39: USE QUEUE TO COORDINATE WORK BETWEEN THREADS
+ITEM 40: CONSIDER COROUTINES TO RUN MANY FUNCTIONS CONCURRENTLY
+ITEM 41: CONSIDER CONCURRENT.FUTURES FOR TRUE PARALLELISM
+
