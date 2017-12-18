@@ -111,23 +111,18 @@ print('producer done')
 class ClosableQueue(Queue):
     SENTINEL = object()
 
-    # def __init__(self):
-        # self.queue = Queue()
-
-    # def put(self, item):
-        # self.queue.put(item)
-
     def close(self):
         self.put(self.SENTINEL)
 
     def __iter__(self):
-        try:
-            item = self.get()
-            if item is self.SENTINEL:
-                return  # exit the thread???
-            yield item
-        finally:
-            self.task_done()
+        while True:
+            try:
+                item = self.get()
+                if item is self.SENTINEL:
+                    return  # this ends the iter, therefore exists the worker thread
+                yield item
+            finally:
+                self.task_done()
 
 
 # Stoppable Worker that utilizes the closable queue
@@ -151,21 +146,29 @@ closable_resize_queue = ClosableQueue()
 closable_upload_queue = ClosableQueue()
 closable_done_queue = ClosableQueue()
 
+# line up the pipes
+stoppable_workers = [StoppableWorker(closable_download_queue, closable_resize_queue, download),
+         StoppableWorker(closable_resize_queue, closable_upload_queue, resize),
+         StoppableWorker(closable_upload_queue, closable_done_queue, upload)]
+
+for t in stoppable_workers:
+    t.start()
+
 # fill in the initial items
 for i in range(100):
     closable_download_queue.put(object())
 
 closable_download_queue.close()
 
-# line up the pipes
-links = [(closable_download_queue, closable_resize_queue, download),
-         (closable_resize_queue, closable_upload_queue, resize),
-         (closable_upload_queue, closable_done_queue, upload)]
-
-for q_in, q_out, func in links:
-    t = StoppableWorker(q_in, q_out, func)
-    t.start()
-
-closable_upload_queue.join()
+print('waiting for download queue to join')
+closable_download_queue.join()
+print('download done')
+closable_resize_queue.close()
+closable_resize_queue.join()
+print('resize done')
+closable_upload_queue.close()
+closable_upload_queue.join()  # join queue, actually quits the thread
 print('upload done')
-print('num items in done queue %d' % len([x for x in closable_done_queue]))
+# closable_done_queue.close()  #need this to print the following
+# print('stuff inside closable queue {}'.format([x for x in closable_done_queue]))
+print('num items in done queue %d' % closable_done_queue.qsize())
