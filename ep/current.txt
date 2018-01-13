@@ -1,8 +1,0 @@
-getting confused is part of the learning process.
----------
-remaining for concurrency and parallelism chapter
-
-ITEM 39: USE QUEUE TO COORDINATE WORK BETWEEN THREADS
-ITEM 40: CONSIDER COROUTINES TO RUN MANY FUNCTIONS CONCURRENTLY
-ITEM 41: CONSIDER CONCURRENT.FUTURES FOR TRUE PARALLELISM
-
