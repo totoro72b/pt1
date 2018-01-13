@@ -77,3 +77,38 @@ def compute_parity_w_cache(x):
     return parity
 
 
+def compute_parity_log(x):
+    """use the property of p(00110101) = p(0011^0101) to cut the input size into half each time
+    until you get to 1 bit, or the smallest size and use cache to get the result directly.
+    half the input size each time, so O(log n) where n is the word size
+    """
+    # assuming on 64 bit machine
+    shift = int(64 / 2)
+    while shift:
+        x = x ^ (x >> shift)
+        shift = int(shift / 2)
+    # parity is at the last bit
+    return x & 1
+
+
+# exercises
+def right_prop_rightmost_set_bit(x):
+    """turn 0101 0000 -> 0101 1111 in O(1)"""
+    return x | (x - 1)
+
+
+def compute_x_mod_power_of_2(x, k):
+    """return x % (2^k) in O(1)
+    77 % 8 = 5
+    100 1101 = 77
+    8 = 2^3. so 77/8 is 77 right shift 3 bits.
+    the "shifted off" 3 bits is the remainder
+    """
+    return x & ((1 << k) - 1)  # grab the last k bits, aka the remainder
+
+
+def is_x_power_of_2(x):
+    """return if x is a power of 2 in O(1)"""
+    # drops the lowest bit and checks if it's zero
+    # power of 2 comes in the form: 1, 10, 100, 1000 etc. exactly 1 bit set
+    return x & (x - 1) == 0
