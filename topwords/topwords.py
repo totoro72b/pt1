@@ -1,6 +1,3 @@
-# 1. get all common words inenglish ranked by frequency
-# 2. get srt movie script files.
-# 3. get top 100 words in movie by inc frequency
 import re
 import sys
 import operator
@@ -9,9 +6,13 @@ from nltk.corpus import wordnet
 from nltk.tokenize import word_tokenize
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.tag import StanfordPOSTagger
+from nltk.corpus import stopwords
 
 
 CORPUS_PATH = 'common_words.txt'
+
+#@imporvement
+# super simplified approach since i only care about verb, adj, adv, noun
 
 class WordNetHelper(object):
 
@@ -42,18 +43,13 @@ class WordNetHelper(object):
         print('tagged {}'.format(tagged))
         return tagged
 
-    def lemmatize(self, tokens):
+
+    def lemmatize(self, token, pos_tag):
         """lemmatize to its own original form (past tense -> present, etc.)"""
-        # wd_tags = nltk.pos_tag([x.lower() for x in word_tokenize(line)])  # word -> tag
-        wd_tags = self.stanford_tagger(tokens)  # word -> tag
-        lemmatized = []
-        for wd, tag in wd_tags:
-            tag = self.wordnet_pos_code(tag)
-            if tag:
-                lemmatized.append(self.lem.lemmatize(wd, tag))
-            else:
-                lemmatized.append(self.lem.lemmatize(wd))
-        return lemmatized
+        tag = self.wordnet_pos_code(pos_tag)
+        if tag:
+            return self.lem.lemmatize(token, tag)
+        return self.lem.lemmatize(token)
 
 
 class TopWords(object):
@@ -65,6 +61,9 @@ class TopWords(object):
         self.path = path
         self.corpus_path = corpus_path
         self.cutoff = cutoff
+
+        self.stop_words = set(stopwords.words('english'))
+
         self.all_words = self.load_corpus()
         self.target_words = self.load_target_words()
         self.top_words = self.get_top_words()
@@ -87,15 +86,24 @@ class TopWords(object):
         """given a file path, lemmatize all words and return in a set """
 
         f = open(self.path, 'r', errors='ignore', encoding='utf-8')
-        words = set()
-        for l in f:
-            tokens = [x.lower() for x in re.findall(r'[a-zA-Z]+', l)]
-            if tokens:
-                lematized_tokens = self.wn.lemmatize(tokens)
-                words.update(lematized_tokens)
-        # 1. just try to put all the words in a bag and lemmatize one by one?
+        # ignore words with ' for now, since the word frequency file doesn't contain such words
+        tokens = set([x.lower() for x in re.findall(r'[a-zA-Z]+', f.read())])
+        print ('before num tokens are', len(tokens), tokens)
+        tokens = tokens - self.stop_words
+        print ('after num tokens are', len(tokens), tokens)
 
-        return words
+        # remove all stop words, put words in a bag, then pos
+        # this is not good for pos tag, but since i only care about v, n, adj, adv, mostly ok
+        wd_pos = {}  # wd -> pos
+        for t in tokens:
+            # shitty cuz pos tag one word at a time. but let's see
+            tagged = self.wn.stanford_tagger([t])
+            wd_pos[tagged[0][0]] = tagged[0][1]
+
+        print('gonna lematize this', wd_pos)
+        lemmatized = set([self.wn.lemmatize(wd, pos) for wd, pos in wd_pos.items()])
+
+        return lemmatized
 
     def get_top_words(self):
         """return the top cutoff words appear in the movie"""

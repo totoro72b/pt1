@@ -11,55 +11,20 @@ class TestTopWords(unittest.TestCase):
         self.cutoff = 100
         self.tw = TopWords(self.file_path, self.cutoff, self.corpus_path)
 
-    def test_load_corpus(self):
-        """test it loads corpus words with increasing frequency"""
+    def test_basic_stuff(self):
+        """test it loads corpus words, loading target, get top"""
+        # all here since it takes forever to init TopWords due to pos_tag the target words
+
+        # test get all thesaurus by inc frequency
         expected = ['offer', 'create', 'offers', 'creating', 'him', 'some', 'one', 'their']
         self.assertEqual(self.tw.all_words, expected)
 
-    def test_load_source(self):
-        """test load target words lemmatized"""
-        # test source words
-        expected = set([
-            'to',
-            'wanna',
-            'create',
-            'him',
-            'font',
-            'a',
-            'fella',
-            'out',
-            'cccc',
-            'west',
-            'color',
-            'time',
-            'tell',
-            'com',
-            'you',
-            'hotmail',
-            'way',
-            'offer',
-            'have',
-            'some',
-            'i',
-            'this',
-            'there',
-            'asdf',
-        ]
-        )
+        # test load target words lemmatized with stop words removed
+        expected = {'way', 'cccc', 'wanna', 'color', 'font', 'asdf', 'tell', 'com', 'create', 'time', 'hotmail', 'fella', 'offer', 'west'}
 
+        print('target words', self.tw.target_words)
         self.assertEqual(self.tw.target_words, expected)
 
-    def test_get_top_words(self):
-       """test correctly fetch top words"""
-       expected = ['offer', 'create', 'him', 'some']
-       self.assertEqual(self.tw.top_words, expected)
-
-
-class TestWordNetHelper(unittest.TestCase):
-    def test_lemmatize(self):
-        line = 'i ran running today and hikes hiking with other girls and ate burgers'.split()
-        wnh = WordNetHelper()
-        actual = wnh.lemmatize(line)
-        expected = 'i run run today and hike hike with other girl and eat burger'
-        self.assertEqual(actual, expected.split())
-
+        # test correctly fetch top words
+        expected = ['offer', 'create']
+        self.assertEqual(self.tw.top_words, expected)
