@@ -87,21 +87,20 @@ class TopWords(object):
 
         f = open(self.path, 'r', errors='ignore', encoding='utf-8')
         # ignore words with ' for now, since the word frequency file doesn't contain such words
+
         tokens = set([x.lower() for x in re.findall(r'[a-zA-Z]+', f.read())])
+        # remove stop words
         print ('before num tokens are', len(tokens), tokens)
         tokens = tokens - self.stop_words
         print ('after num tokens are', len(tokens), tokens)
 
-        # remove all stop words, put words in a bag, then pos
-        # this is not good for pos tag, but since i only care about v, n, adj, adv, mostly ok
-        wd_pos = {}  # wd -> pos
-        for t in tokens:
-            # shitty cuz pos tag one word at a time. but let's see
-            tagged = self.wn.stanford_tagger([t])
-            wd_pos[tagged[0][0]] = tagged[0][1]
+        # tokens = [x.lower() for x in re.findall(r'[a-zA-Z]+', f.read())]
 
-        print('gonna lematize this', wd_pos)
-        lemmatized = set([self.wn.lemmatize(wd, pos) for wd, pos in wd_pos.items()])
+        # bs cuz not a sentence
+        tagged = self.wn.stanford_tagger(list(tokens))
+
+        # lemmatized = set([self.wn.lemmatize(wd, pos) for wd, pos in wd_pos.items()])
+        lemmatized = set([self.wn.lemmatize(wd, pos) for wd, pos in tagged])
 
         return lemmatized
 
