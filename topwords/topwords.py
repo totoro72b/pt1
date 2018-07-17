@@ -33,14 +33,11 @@ class WordNetHelper(object):
         elif tag.startswith('RB'):
             return wordnet.ADV
         else:
-            print('tag ={}. no match'.format(tag))
             return None
 
     @classmethod
     def stanford_tagger(cls, tokens):
-        print('tagging {}'.format(tokens))
         tagged = cls.pos_tagger.tag(tokens)
-        print('tagged {}'.format(tagged))
         return tagged
 
 
@@ -90,17 +87,22 @@ class TopWords(object):
 
         tokens = set([x.lower() for x in re.findall(r'[a-zA-Z]+', f.read())])
         # remove stop words
-        print ('before num tokens are', len(tokens), tokens)
-        tokens = tokens - self.stop_words
-        print ('after num tokens are', len(tokens), tokens)
+        tokens = list(tokens - self.stop_words)
 
         # tokens = [x.lower() for x in re.findall(r'[a-zA-Z]+', f.read())]
+        print('after stops, num tokens: {}'.format(len(tokens)))
 
-        # bs cuz not a sentence
-        tagged = self.wn.stanford_tagger(list(tokens))
-
-        # lemmatized = set([self.wn.lemmatize(wd, pos) for wd, pos in wd_pos.items()])
-        lemmatized = set([self.wn.lemmatize(wd, pos) for wd, pos in tagged])
+        # BS cuz not a sentence
+        # limit length of sentence
+        chunk_size = 500 # 500 words
+        start = 0
+        lemmatized = set()
+        while start < len(tokens):
+            print('pos tagging starting at {}/{}'.format(start, len(tokens)))
+            tagged = self.wn.stanford_tagger(tokens[start : start + chunk_size])
+            # lemmatized = set([self.wn.lemmatize(wd, pos) for wd, pos in wd_pos.items()])
+            lemmatized.update([self.wn.lemmatize(wd, pos) for wd, pos in tagged])
+            start += chunk_size
 
         return lemmatized
 
@@ -114,6 +116,12 @@ class TopWords(object):
             if w in self.target_words:
                 words.append(w)
 
+        print('================= TOP words ==================')
+        print(words)
+
+        print('==================== words not in thesaurus ================')
+        print(self.target_words - set(self.all_words))
+
         return words
 
 
@@ -126,5 +134,4 @@ if __name__ == '__main__':
         kwargs['corpus_path'] = args[2]
 
     tw = TopWords(**kwargs)
-    print(tw.top_words)
 
