@@ -1,0 +1,36 @@
+basic operators:
+x range
+x of
+x from
+x interval - timer (also setTimeOut?)
+x empty
+
+x Map - MapTo
+Filter
+Do
+Pluck
+First
+
+x StartWith
+? Create (create observable given subscription function?)
+x Every
+x distinctUntilChanged
+defaultIfEmpty
+
+
+import Rx from rxjs;
+
+Rx.observable.interval(100).map(n=>~~(n/10).distinctUntioChanged().subscribe(a=>console.log(a));
+
+time related operators:
+
+Rx.Observable.empty().subscribe(a=>console.log('asdf',a));
+
+const ticker = Rx.Observable.interval(2000);
+
+ticker.subscribe((x)=>console.log('a', x));
+setTimeout(()=>ticker.subscribe(x=>console.log('b', x)), 1000);
+
+const stopwatch = Rx.Observable.timer(2000);
+stopwatch.subscribe((x)=>console.log('a', x));
+setTimeout(()=>stopwatch.subscribe(x=>console.log('b', x)), 1000);
