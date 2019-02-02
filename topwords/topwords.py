@@ -11,8 +11,9 @@ from nltk.corpus import stopwords
 
 CORPUS_PATH = 'common_words.txt'
 
-#@imporvement
+# @imporvement
 # super simplified approach since i only care about verb, adj, adv, noun
+
 
 class WordNetHelper(object):
 
@@ -40,7 +41,6 @@ class WordNetHelper(object):
         tagged = cls.pos_tagger.tag(tokens)
         return tagged
 
-
     def lemmatize(self, token, pos_tag):
         """lemmatize to its own original form (past tense -> present, etc.)"""
         tag = self.wordnet_pos_code(pos_tag)
@@ -64,7 +64,6 @@ class TopWords(object):
         self.all_words = self.load_corpus()
         self.target_words = self.load_target_words()
         self.top_words = self.get_top_words()
-
 
     def load_corpus(self):
         """load a file where each line contains a word and a number indicates frquence
@@ -94,17 +93,43 @@ class TopWords(object):
 
         # BS cuz not a sentence
         # limit length of sentence
-        chunk_size = 500 # 500 words
+        chunk_size = 500  # 500 words
         start = 0
         lemmatized = set()
         while start < len(tokens):
             print('pos tagging starting at {}/{}'.format(start, len(tokens)))
-            tagged = self.wn.stanford_tagger(tokens[start : start + chunk_size])
+            tagged = self.wn.stanford_tagger(tokens[start: start + chunk_size])
             # lemmatized = set([self.wn.lemmatize(wd, pos) for wd, pos in wd_pos.items()])
-            lemmatized.update([self.wn.lemmatize(wd, pos) for wd, pos in tagged])
+            lemmatized.update([self.wn.lemmatize(wd, pos)
+                               for wd, pos in tagged])
             start += chunk_size
 
         return lemmatized
+
+    @staticmethod
+    def neat_print(words):
+        """print words at most 120 chars per line. show line number too"""
+        final = []
+        l = 0
+        max_line_wrap = 80
+        temp = []
+        for w in words:
+            if l + len(w) > max_line_wrap:
+                # push temp and reset
+                final.append(temp)
+                temp = [w]
+                l = len(w) + 1  # 1 for space
+            else:
+                temp.append(w)
+                l += len(w) + 1
+        # append the final bits
+        final.append(temp)
+
+        # print stuff with line number
+        for idx, line in enumerate(final):
+            print('{num:0>3}|{words}'.format(num=idx, words=' '.join(line)))
+            if (idx + 1) % 5 == 0:
+                print('\n')
 
     def get_top_words(self):
         """return the top cutoff words appear in the movie"""
@@ -116,11 +141,11 @@ class TopWords(object):
             if w in self.target_words:
                 words.append(w)
 
-        print('================= TOP words ==================')
-        print(words)
+        print('\n================= TOP words ==================')
+        self.neat_print(words)
 
-        print('==================== words not in thesaurus ================')
-        print(self.target_words - set(self.all_words))
+        print('\n==================== words not in thesaurus ================')
+        self.neat_print(self.target_words - set(self.all_words))
 
         return words
 
@@ -134,4 +159,3 @@ if __name__ == '__main__':
         kwargs['corpus_path'] = args[2]
 
     tw = TopWords(**kwargs)
-
