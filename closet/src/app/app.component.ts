@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Item } from './types';
+import { flatMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +11,30 @@ import { Item } from './types';
 export class AppComponent implements OnInit {
   title = 'closet';
   items: Item[] = null;
+  filteredItems: Item[] = [];
+  searchfg: FormGroup = new FormGroup({
+    search: new FormControl(),
+    category: new FormControl()
+  });
+
+  onSearchChanges(changes: any) {
+    const keyword = changes.search;
+    console.log('change str', keyword);
+    // TODO add debounce
+    this.filteredItems = this.items.filter(x =>
+      x.description.toLowerCase().includes(keyword.toLowerCase())
+    );
+  }
 
   ngOnInit() {
-    // NOTE mock fake data for now
+    this.searchfg.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged() // FIXME: doesn't really work
+      )
+      .subscribe(changes => {
+        this.onSearchChanges(changes);
+      });
     this.items = [
       {
         category: 'top',
@@ -35,5 +58,6 @@ export class AppComponent implements OnInit {
         id: 3
       }
     ];
+    this.filteredItems = [...this.items];
   }
 }
