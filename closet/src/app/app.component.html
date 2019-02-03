@@ -1,5 +1,36 @@
-<div class="items-container">
-  <app-detail-card *ngFor="let item of items" [item]=item></app-detail-card>
+<div class="app-container">
+  <div class="form-group row">
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn btn-danger dropdown-toggle"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Category
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Separated link</a>
+      </div>
+    </div>
+
+    <div class="col-10">
+      <input
+        class="form-control"
+        type="search"
+        placeholder="search by description"
+        id="example-search-input"
+      />
+    </div>
+  </div>
+  <div class="items-container">
+    <app-detail-card *ngFor="let item of items" [item]="item"></app-detail-card>
+  </div>
 </div>
 
 <!-- <router-outlet></router-outlet> -->
