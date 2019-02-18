@@ -1,0 +1,17 @@
+make home page use ngb dropdown
+finish new modal: save -> add to items in memory
+edit icon
+edit modal : save-> edit existing item in memory
+in edit/new, at bottom of dropdown allows add category (gmail label style)
+delete - remove from the list
+category validator: forbidden "all" or existing ones
+
+Future Features:
+====================
+label: multi-select
+// manage labels (future feature)
+rename?
+delete? (when no item with that category, drop that category)
+
+// db wise, each user gets its own label (user_pk, category) unique
+// by default, each user gets top, bottom, accessory
