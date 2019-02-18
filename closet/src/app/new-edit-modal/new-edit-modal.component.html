@@ -1,23 +1,52 @@
 <div class="modal-header">
-  <h4 class="modal-title">Create New</h4>
+  <h4 class="modal-title">{{ titleText }}</h4>
   <button
     type="button"
     class="close"
-    aria-label="Close"
     (click)="activeModal.dismiss('Cross click')"
   >
-    <span aria-hidden="true">&times;</span>
+    <span>&times;</span>
   </button>
 </div>
+
 <div class="modal-body">
-  <p>One fine body&hellip;</p>
+  <!-- name input -->
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Item Name</span>
+    </div>
+    <input type="text" class="form-control" />
+  </div>
+  <!-- desc input -->
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Description</span>
+    </div>
+    <input type="text" class="form-control" />
+  </div>
+  <!-- cate drop -->
+  <div ngbDropdown class="">
+    <button
+      class="btn btn-outline-primary"
+      id="dropdownBasic1"
+      ngbDropdownToggle
+    >
+      {{ selectedCategory || 'Select a Category' }}
+    </button>
+    <div ngbDropdownMenu class="dropdown-menu">
+      <button
+        class="dropdown-item"
+        *ngFor="let cat of allCategories"
+        (click)="setCategory(cat)"
+      >
+        {{ cat }}
+      </button>
+    </div>
+    <div>show image here</div>
+  </div>
 </div>
 <div class="modal-footer">
-  <button
-    type="button"
-    class="btn btn-success"
-    (click)="activeModal.close('Close click')"
-  >
-    Create
+  <button type="button" class="btn btn-success" (click)="btnClickHandler()">
+    {{ btnText }}
   </button>
 </div>

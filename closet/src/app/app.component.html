@@ -28,9 +28,13 @@
         placeholder="search by description"
       />
     </div>
-    <div class="col-2" (click)="openModal()">
-      new btn
-    </div>
+    <button
+      type="button"
+      class="btn  btn-success col-2"
+      (click)="openModal(null)"
+    >
+      Add Item
+    </button>
   </div>
   <div class="items-container">
     <app-detail-card

@@ -2,10 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Item } from './types';
 import { flatMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { NewEditModalComponent } from './new-edit-modal/new-edit-modal.component';
 
 const ALL = 'all';
+const ngbModalOptions: NgbModalOptions = {
+  backdrop: 'static',
+  keyboard: false,
+  size: 'lg'
+};
 
 @Component({
   selector: 'app-root',
@@ -22,14 +27,19 @@ export class AppComponent implements OnInit {
     search: new FormControl(),
     category: new FormControl()
   });
+
   constructor(private modal: NgbModal) {}
 
   get selectedCategory(): string {
     return this.searchfg.get('category').value;
   }
 
-  openModal(): void {
-    this.modal.open(NewEditModalComponent);
+  openModal(item: Item): void {
+    // item = null in new mode
+    // item = instance in edit mode
+    const modalRef = this.modal.open(NewEditModalComponent, ngbModalOptions);
+    modalRef.componentInstance.item = item;
+    modalRef.componentInstance.allCategories = this.allCategories;
   }
 
   filterItems(changes: any) {
