@@ -1,17 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl } from "@angular/forms";
-import { Item } from "./types";
-import { flatMap, debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Item } from './types';
+import { flatMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NewEditModalComponent } from './new-edit-modal/new-edit-modal.component';
 
-const ALL = "all";
+const ALL = 'all';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = "closet";
+  title = 'closet';
   items: Item[] = null;
   filteredItems: Item[] = [];
   isDropdownOpen = false;
@@ -20,16 +22,21 @@ export class AppComponent implements OnInit {
     search: new FormControl(),
     category: new FormControl()
   });
+  constructor(private modal: NgbModal) {}
 
   get selectedCategory(): string {
-    return this.searchfg.get("category").value;
+    return this.searchfg.get('category').value;
+  }
+
+  openModal(): void {
+    this.modal.open(NewEditModalComponent);
   }
 
   filterItems(changes: any) {
-    const keyword = changes.search || "";
-    const category = changes.category === ALL ? "" : changes.category;
-    console.log("category is", category);
-    console.log("change str", keyword);
+    const keyword = changes.search || '';
+    const category = changes.category === ALL ? '' : changes.category;
+    console.log('category is', category);
+    console.log('change str', keyword);
     // TODO add debounce
     this.filteredItems = this.items.filter(
       x =>
@@ -43,12 +50,12 @@ export class AppComponent implements OnInit {
   }
 
   setCategory(cat: string): void {
-    this.searchfg.get("category").setValue(cat);
+    this.searchfg.get('category').setValue(cat);
     this.toggleCategoryDropdown();
   }
 
   ngOnInit() {
-    this.searchfg.get("category").setValue(ALL);
+    this.searchfg.get('category').setValue(ALL);
     this.searchfg.valueChanges
       .pipe(
         debounceTime(500),
@@ -59,24 +66,24 @@ export class AppComponent implements OnInit {
       });
     this.items = [
       {
-        category: "top",
-        description: "fav blouse",
+        category: 'top',
+        description: 'fav blouse',
         imgUrl:
-          "https://images.anthropologie.com/is/image/Anthropologie/4110084326168_089_b?$an-category$&qlt=80&fit=constrain",
+          'https://images.anthropologie.com/is/image/Anthropologie/4110084326168_089_b?$an-category$&qlt=80&fit=constrain',
         id: 1
       },
       {
-        category: "bottom",
-        description: "skirt",
+        category: 'bottom',
+        description: 'skirt',
         imgUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7z09tXLDZODUEJLM5q6neP0NXLBhjckrZz6ZIXOzjBsLCP9NVrw",
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7z09tXLDZODUEJLM5q6neP0NXLBhjckrZz6ZIXOzjBsLCP9NVrw',
         id: 2
       },
       {
-        category: "accessory",
-        description: "pink hat",
+        category: 'accessory',
+        description: 'pink hat',
         imgUrl:
-          "https://www.acnestudios.com/on/demandware.static/-/Sites-acne-product-catalog/default/dwdfbd534d/images/D4/D40001-/1500x/D40001-418_C.jpg",
+          'https://www.acnestudios.com/on/demandware.static/-/Sites-acne-product-catalog/default/dwdfbd534d/images/D4/D40001-/1500x/D40001-418_C.jpg',
         id: 3
       }
     ];
