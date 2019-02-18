@@ -1,21 +1,22 @@
 <div class="app-container">
   <div class="form-group row" [formGroup]="searchfg">
-    <div class="btn-group col-2">
+    <div class="dropdown" [ngClass]="{ show: isDropdownOpen }">
       <button
+        (click)="toggleCategoryDropdown()"
+        class="btn btn-secondary dropdown-toggle"
         type="button"
-        class="btn btn-danger dropdown-toggle"
+        id="dropdownMenuButton"
         data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
       >
         Category
       </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Separated link</a>
+      <div class="dropdown-menu" [ngClass]="{ show: isDropdownOpen }">
+        <a
+          *ngFor="let cat of allCategories"
+          class="dropdown-item"
+          (click)="setCategory(cat)"
+          >{{ cat }}</a
+        >
       </div>
     </div>
 

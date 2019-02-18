@@ -12,28 +12,44 @@ export class AppComponent implements OnInit {
   title = 'closet';
   items: Item[] = null;
   filteredItems: Item[] = [];
+  isDropdownOpen = false;
+  allCategories: string[] = [];
   searchfg: FormGroup = new FormGroup({
     search: new FormControl(),
     category: new FormControl()
   });
 
-  onSearchChanges(changes: any) {
-    const keyword = changes.search;
+  filterItems(changes: any) {
+    const keyword = changes.search || '';
+    const category = changes.category === 'ALL' ? '' : changes.category;
+    console.log('category is', category);
     console.log('change str', keyword);
     // TODO add debounce
-    this.filteredItems = this.items.filter(x =>
-      x.description.toLowerCase().includes(keyword.toLowerCase())
+    this.filteredItems = this.items.filter(
+      x =>
+        x.description.toLowerCase().includes(keyword.toLowerCase()) &&
+        x.category.toLowerCase().includes(category)
     );
   }
 
+  toggleCategoryDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  setCategory(cat: string): void {
+    this.searchfg.get('category').setValue(cat);
+    this.toggleCategoryDropdown();
+  }
+
   ngOnInit() {
+    this.searchfg.get('category').setValue('ALL');
     this.searchfg.valueChanges
       .pipe(
         debounceTime(500),
         distinctUntilChanged() // FIXME: doesn't really work
       )
       .subscribe(changes => {
-        this.onSearchChanges(changes);
+        this.filterItems(changes);
       });
     this.items = [
       {
@@ -58,6 +74,8 @@ export class AppComponent implements OnInit {
         id: 3
       }
     ];
+    this.allCategories = this.items.map(x => x.category.toLowerCase());
+    this.allCategories.push('ALL');
     this.filteredItems = [...this.items];
   }
 }
