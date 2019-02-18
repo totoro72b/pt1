@@ -21,6 +21,10 @@ export class AppComponent implements OnInit {
     category: new FormControl()
   });
 
+  get selectedCategory(): string {
+    return this.searchfg.get("category").value;
+  }
+
   filterItems(changes: any) {
     const keyword = changes.search || "";
     const category = changes.category === ALL ? "" : changes.category;
