@@ -9,20 +9,20 @@
   </button>
 </div>
 
-<div class="modal-body">
+<div class="modal-body" [formGroup]="itemFG">
   <!-- name input -->
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text">Item Name</span>
     </div>
-    <input type="text" class="form-control" />
+    <input formControlName="name" type="text" class="form-control" />
   </div>
   <!-- desc input -->
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text">Description</span>
     </div>
-    <input type="text" class="form-control" />
+    <input type="text" class="form-control" formControlName="description" />
   </div>
   <!-- cate drop -->
   <div ngbDropdown class="">
@@ -42,7 +42,12 @@
         {{ cat }}
       </button>
     </div>
-    <div>show image here</div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Image URL</span>
+      </div>
+      <input formControlName="imgUrl" type="text" class="form-control" />
+    </div>
   </div>
 </div>
 <div class="modal-footer">
