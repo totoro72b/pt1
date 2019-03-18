@@ -1,7 +1,8 @@
-make home page use ngb dropdown
-finish new modal: save -> add to items in memory
+need both name and description??
+  category, name, description?
+save btn in edit modal (replace item in memory)
+save btn in new modal (add to memory)
 edit icon
-edit modal : save-> edit existing item in memory
 delete - remove from the list
 
 TODO:
