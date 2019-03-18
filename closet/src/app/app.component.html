@@ -1,22 +1,17 @@
 <div class="app-container">
   <div class="form-group row" [formGroup]="searchfg">
-    <div class="dropdown" [ngClass]="{ show: isDropdownOpen }">
-      <button
-        (click)="toggleCategoryDropdown()"
-        class="btn btn-secondary dropdown-toggle"
-        type="button"
-        id="dropdownMenuButton"
-        data-toggle="dropdown"
-      >
-        Category: {{ selectedCategory }}
+    <div ngbDropdown class="">
+      <button class="btn btn-outline-primary" ngbDropdownToggle>
+        Category: {{ selectedCategory || "Select a Category" }}
       </button>
-      <div class="dropdown-menu" [ngClass]="{ show: isDropdownOpen }">
-        <a
-          *ngFor="let cat of allCategories"
+      <div ngbDropdownMenu class="dropdown-menu">
+        <button
           class="dropdown-item"
+          *ngFor="let cat of allCategories"
           (click)="setCategory(cat)"
-          >{{ cat }}</a
         >
+          {{ cat }}
+        </button>
       </div>
     </div>
 

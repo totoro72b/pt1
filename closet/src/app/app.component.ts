@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
     this.searchfg.get('category').setValue(ALL);
     this.searchfg.valueChanges
       .pipe(
-        debounceTime(500),
+        debounceTime(300),
         distinctUntilChanged() // FIXME: doesn't really work
       )
       .subscribe(changes => {
