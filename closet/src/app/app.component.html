@@ -28,13 +28,15 @@
       class="btn  btn-success col-2"
       (click)="openModal(null)"
     >
-      Add Item
+      Add New Item
     </button>
   </div>
   <div class="items-container">
     <app-detail-card
-      *ngFor="let item of filteredItems"
+      *ngFor="let item of filteredItems; index as i"
       [item]="item"
+      [index]="i"
+      (editEmitter)="openModal($event)"
     ></app-detail-card>
   </div>
 </div>

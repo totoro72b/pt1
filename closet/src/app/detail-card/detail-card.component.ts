@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Item } from '../types';
 
 @Component({
@@ -7,11 +7,14 @@ import { Item } from '../types';
   styleUrls: ['./detail-card.component.scss']
 })
 export class DetailCardComponent implements OnInit {
-
   @Input() item: Item;
-  constructor() { }
+  @Input() index: number;
+  @Output() editEmitter = new EventEmitter<number>();
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+  editClickHandler(idx: number) {
+    console.log('click index', idx);
+    this.editEmitter.emit(idx);
   }
-
 }

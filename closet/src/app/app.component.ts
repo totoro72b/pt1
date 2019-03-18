@@ -33,11 +33,14 @@ export class AppComponent implements OnInit {
     return this.searchfg.get('category').value;
   }
 
-  openModal(item: Item): void {
+  openModal(itemIdx: number): void {
+    console.log('openmodal idx', itemIdx);
     // item = null in new mode
     // item = instance in edit mode
     const modalRef = this.modal.open(NewEditModalComponent, ngbModalOptions);
-    modalRef.componentInstance.item = item;
+    modalRef.componentInstance.item =
+      itemIdx !== null ? this.items[itemIdx] : null;
+    modalRef.componentInstance.itemIndex = itemIdx;
     modalRef.componentInstance.allCategories = this.allCategories;
   }
 

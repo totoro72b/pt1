@@ -1,4 +1,8 @@
 <div class="item-container">
-  <div class="header">{{item.category}}/{{item.description}}</div>
-  <img src="{{item.imgUrl}}" alt="{{item.description}}" height="200">
+  <div class="header">{{ item.category }}/{{ item.description }}</div>
+  <div class="edit-icon" (click)="editClickHandler(index)">
+    edit
+    <i class="far fa-edit"></i>
+  </div>
+  <img src="{{ item.imgUrl }}" alt="{{ item.description }}" height="200" />
 </div>

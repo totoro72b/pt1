@@ -4,3 +4,8 @@ export interface Item {
   imgUrl: string;
   id: number;
 }
+
+export interface SaveItemEvent {
+  item: Item;
+  index: number;
+}

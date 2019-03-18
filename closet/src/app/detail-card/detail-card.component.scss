@@ -10,4 +10,12 @@
   .img {
     border: 1px solid gray;
   }
+  .edit-icon {
+    height: 15px;
+    cursor: pointer;
+    .fa-edit {
+      font-size: 14px;
+      color: gray;
+    }
+  }
 }
