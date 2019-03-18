@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
   title = 'closet';
   items: Item[] = null;
   filteredItems: Item[] = [];
-  isDropdownOpen = false;
   allCategories: string[] = [];
   searchfg: FormGroup = new FormGroup({
     search: new FormControl(),
@@ -55,13 +54,8 @@ export class AppComponent implements OnInit {
     );
   }
 
-  toggleCategoryDropdown(): void {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
-
   setCategory(cat: string): void {
     this.searchfg.get('category').setValue(cat);
-    this.toggleCategoryDropdown();
   }
 
   ngOnInit() {
