@@ -18,7 +18,7 @@ CORPUS_PATH = 'common_words.txt'
 class WordNetHelper(object):
 
     lem = WordNetLemmatizer()
-    jar = './pos_tagger/stanford-postagger-3.9.1.jar'
+    jar = './pos_tagger/stanford-postagger-3.9.2.jar'
     model = './pos_tagger/models/english-bidirectional-distsim.tagger'
 
     pos_tagger = StanfordPOSTagger(model, jar, encoding='utf8')
