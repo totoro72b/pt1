@@ -1,9 +1,15 @@
-need both name and description??
-  category, name, description?
-save btn in edit modal (replace item in memory)
-save btn in new modal (add to memory)
-edit icon
-delete - remove from the list
+* need both name and description?? - 10
+  make  only name and category
+
+save btn in edit modal (replace item in memory) - 10
+save btn in new modal (add to memory) - 10
+
+edit icon - 10
+delete - remove from the list - 10
+
+style edit modal - 20
+
+2:33pm leave
 
 TODO:
 add image preview in edit/add modal

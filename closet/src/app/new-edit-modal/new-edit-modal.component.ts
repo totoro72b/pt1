@@ -1,12 +1,12 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Item, SaveItemEvent } from '../types';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit, Output } from "@angular/core";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { Item, SaveItemEvent } from "../types";
+import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
-  selector: 'app-new-edit-modal',
-  templateUrl: './new-edit-modal.component.html',
-  styleUrls: ['./new-edit-modal.component.scss']
+  selector: "app-new-edit-modal",
+  templateUrl: "./new-edit-modal.component.html",
+  styleUrls: ["./new-edit-modal.component.scss"]
 })
 export class NewEditModalComponent implements OnInit {
   @Output() saveItemEvent: SaveItemEvent;
@@ -20,7 +20,6 @@ export class NewEditModalComponent implements OnInit {
   allCategories: string[];
 
   itemFG: FormGroup = new FormGroup({
-    description: new FormControl(),
     name: new FormControl(),
     category: new FormControl(),
     imgUrl: new FormControl()
@@ -32,7 +31,6 @@ export class NewEditModalComponent implements OnInit {
     if (this.item) {
       // assign values to form group
       const item: Item = this.item;
-      this.itemFG.get('description').setValue(item.description);
       this.itemFG.get('category').setValue(item.category);
       this.itemFG.get('imgUrl').setValue(item.imgUrl);
     }
