@@ -5,7 +5,7 @@ export interface Item {
   id: number;
 }
 
-export interface SaveItemEvent {
+export interface SaveItem {
   item: Item;
   index: number;
 }

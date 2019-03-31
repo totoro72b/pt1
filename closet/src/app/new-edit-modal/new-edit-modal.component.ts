@@ -1,6 +1,6 @@
-import { Component, OnInit, Output } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { Item, SaveItemEvent } from "../types";
+import { Item, SaveItem } from "../types";
 import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
@@ -9,12 +9,12 @@ import { FormGroup, FormControl } from "@angular/forms";
   styleUrls: ["./new-edit-modal.component.scss"]
 })
 export class NewEditModalComponent implements OnInit {
-  @Output() saveItemEvent: SaveItemEvent;
+  @Output() updateItemEvent: EventEmitter<SaveItem> = new EventEmitter<
+    SaveItem
+  >();
 
   constructor(public activeModal: NgbActiveModal) {}
   // modal input
-  // input: any = {};
-  // editItemIndex = null;
   item: Item = null;
   itemIndex: number = null;
   allCategories: string[];
@@ -27,32 +27,32 @@ export class NewEditModalComponent implements OnInit {
 
   ngOnInit() {
     // assign input data
-    console.log('got input item', this.item);
+    console.log("got input item", this.item);
     if (this.item) {
       // assign values to form group
       const item: Item = this.item;
-      this.itemFG.get('category').setValue(item.category);
-      this.itemFG.get('imgUrl').setValue(item.imgUrl);
+      this.itemFG.get("category").setValue(item.category);
+      this.itemFG.get("imgUrl").setValue(item.imgUrl);
     }
   }
 
   get titleText(): string {
     if (this.itemIndex !== null) {
-      return 'Edit Item';
+      return "Edit Item";
     }
-    return 'Add Item';
+    return "Add Item";
   }
 
   get selectedCategory(): string {
-    return this.itemFG.value['category'];
+    return this.itemFG.value["category"];
   }
 
   setCategory(cat: string) {
-    this.itemFG.get('category').setValue(cat);
+    this.itemFG.get("category").setValue(cat);
   }
 
   saveClickHandler(): void {
-    // TODO
-    console.log('form group', this.itemFG.value);
+    const newItem = { index: null, item: this.itemFG.value };
+    this.updateItemEvent.emit(newItem);
   }
 }

@@ -1,7 +1,12 @@
-* need both name and description?? - 10
+x need both name and description?? - 10
   make  only name and category
 
-save btn in edit modal (replace item in memory) - 10
+* save btn in edit modal (replace item in memory) - 10
+  modal output not via emitter, but by the modal close thingy
+  change back to save event
+  1345
+
+? TODO: modal close result??  how to get?
 save btn in new modal (add to memory) - 10
 
 edit icon - 10

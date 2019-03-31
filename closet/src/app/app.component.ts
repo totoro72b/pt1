@@ -42,6 +42,10 @@ export class AppComponent implements OnInit {
       itemIdx !== null ? this.items[itemIdx] : null;
     modalRef.componentInstance.itemIndex = itemIdx;
     modalRef.componentInstance.allCategories = this.allCategories;
+
+    modalRef.result.then(result => {
+      console.log('modal closes', result);
+    });
   }
 
   filterItems(changes: any) {
