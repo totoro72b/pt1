@@ -5,20 +5,22 @@ export class Store {
 
   constructor(reducers = {}, initialState = {}) {
     this.reducers = reducers;
-    this.state = initialState;
+    this.state = this.reduce(initialState, {});
   }
 
   get value() {
     return this.state;
   }
   dispatch(action) {
-    // action has payload and type. here we ignore type for now
-    // append todos to state
-    // this is the job of the reducers. TODO fix it
-    // questinos; WHO passes reducers to the store?
-    //should store have it? or app?
-    // how can store call the reducer w/o konwing anythinga bout it?
-    // TODO how to select hte correct reducers?
-    this.state = this.reducers[action.type](this.state, action);
+    this.state = this.reduce(this.state, action);
+  }
+
+  private reduce(state, action) {
+    const newState = {};
+    for (const prop in this.reducers) {
+      // register the reducers
+      newState[prop] = this.reducers[prop](state[prop], action); // result of the reducer call
+    }
+    return newState;
   }
 }

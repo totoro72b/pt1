@@ -1,7 +1,7 @@
 export const initialState = {
   loading: false,
   loaded: false,
-  data: [{ label: "asdf", complete: false }]
+  data: [{ label: "eat pizza", complete: false }] // let reducer to provide initial state
 };
 
 export function reducer(
@@ -16,16 +16,5 @@ export function reducer(
         data: [...state.data, action.payload]
       };
   }
+  return state;
 }
-
-// function reduce(state, action){
-//     switch(action.type){
-//         'ADD_TODO':{
-//             return {
-//                 ...state,
-//                 todos: [...state.todos, action.payload]
-//             }
-//         }
-//     }
-// }
-// export reducers: Function[] =[reduce ];
