@@ -1,40 +1,55 @@
 // this pulls everyrting from index.ts, which contains everything from reducers and store so far
-import * as fromStore from "./store";
-import { renderTodos } from "./utils";
+import * as fromStore from './store'; // NOTE: this is the store folder, not store.ts
+import { renderTodos } from './utils';
 
-const input = document.querySelector("input") as HTMLInputElement;
-const button = document.querySelector("button") as HTMLButtonElement;
-const destroy = document.querySelector(".unsubscribe") as HTMLButtonElement;
-const todoList = document.querySelector(".todos") as HTMLLIElement;
+const input = document.querySelector('input') as HTMLInputElement;
+const button = document.querySelector('button') as HTMLButtonElement;
+const destroy = document.querySelector('.unsubscribe') as HTMLButtonElement;
+const todoList = document.querySelector('.todos') as HTMLLIElement;
 
 const reducers = {
-  todos: fromStore.reducer
+  todos: fromStore.reducer // this is from store/reducers.ts exported functino reducer
 };
 
 // add event listeners
 button.addEventListener(
-  "click",
+  'click',
   () => {
     if (!input.value.trim()) return;
-    const payload = { label: input.value, complete: false };
-    store.dispatch({ type: "ADD_TODO", payload });
-    console.log(store.value);
-    input.value = "haha";
+    const todo = { label: input.value, complete: false };
+    // store.dispatch({ type: 'ADD_TODO', payload });
+    store.dispatch(new fromStore.AddTodo(todo));
+    input.value = '';
   },
   false
 );
 
-todoList.addEventListener("click", function(event) {
+todoList.addEventListener('click', function(event) {
   const target = event.target as HTMLButtonElement;
-  if (target.nodeName.toLowerCase() === "button") {
-    console.log("target", target);
+  if (target.nodeName.toLowerCase() === 'button') {
+    const todo = JSON.parse(target.getAttribute('data-todo') as any);
+    store.dispatch(new fromStore.RemoveTodo(todo));
   }
 });
 
 const store = new fromStore.Store(reducers);
 const action = {
-  payload: { label: "asdf", complete: false },
-  type: "ADD_TODO"
+  payload: { label: 'asdf', complete: false },
+  type: fromStore.ADD_TODO
 };
+
 store.dispatch(action);
-console.log("got store value", store.value);
+
+const unsubscribeRender = store.subscribe(state => {
+  return renderTodos(state.todos.data);
+});
+
+// const unsubscribeLog = store.subscribe(state => {
+//   console.log('todos are', state.todos.data);
+// });
+
+destroy.addEventListener('click', unsubscribeRender, false);
+
+console.log('got store value', store.value);
+
+console.log('from store is', fromStore);
