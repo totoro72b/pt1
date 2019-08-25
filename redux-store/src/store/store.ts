@@ -34,7 +34,8 @@ export class Store {
   private reduce(state, action) {
     const newState = {};
     for (const prop in this.reducers) {
-      // register the reducers
+      // for each property, apply the corresponding reducer (aka reducers[prop])
+      // to teh corresponidng state (aka state[prop]) for the given action
       newState[prop] = this.reducers[prop](state[prop], action); // result of the reducer call
     }
     return newState;
