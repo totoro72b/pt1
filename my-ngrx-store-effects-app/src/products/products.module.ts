@@ -24,11 +24,11 @@ export const ROUTES: Routes = [
     component: fromContainers.ProductsComponent
   },
   {
-    path: ":id",
+    path: "new",
     component: fromContainers.ProductItemComponent
   },
   {
-    path: "new",
+    path: ":pizzaId",
     component: fromContainers.ProductItemComponent
   }
 ];
@@ -39,7 +39,7 @@ export const ROUTES: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forChild(ROUTES),
-    //todo is this "regustering" reducers?
+    //todo is this "registering" reducers?
     StoreModule.forFeature("ducks", reducers),
     EffectsModule.forFeature(effects)
   ],

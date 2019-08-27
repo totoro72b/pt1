@@ -40,6 +40,7 @@ export function reducer(
   return initialState;
 }
 
+// todo why isn't this exported in reducers/index.ts like the rest?
 export const getPizzasEntities = (state: PizzaState) => state.entities;
 export const getPizzasLoading = (state: PizzaState) => state.loading;
 export const getPizzasLoaded = (state: PizzaState) => state.loaded;
