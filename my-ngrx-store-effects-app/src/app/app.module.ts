@@ -42,7 +42,7 @@ export const ROUTES: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(ROUTES),
-    StoreModule.forRoot({}, { metaReducers }),
+    StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule,
     environment.development ? StoreDevtoolsModule.instrument() : []

@@ -1,12 +1,12 @@
 import { createSelector } from "@ngrx/store";
 import * as fromRoot from "../../../app/store";
 import * as fromFeature from "../reducers";
+// equivalent to
+// import * as fromFeature from "../reducers/index";
 import * as fromPizzas from "../reducers/pizzas.reducer";
 import { Pizza } from "src/products/models/pizza.model";
 
 // TODO why pizzas filehere?
-// equivalent as
-// import * as fromFeature from "../reducers/index";
 
 export const getPizzaState = createSelector(
   fromFeature.getProductsState,
@@ -29,6 +29,7 @@ export const getSelectedPizza = createSelector(
     // todo what if router.state is falsy?
     const result = router.state && entities[router.state.params.pizzaId];
     console.log("router.state=", router.state, "result=", result);
+    console.log("entities", entities);
     return router.state && entities[router.state.params.pizzaId];
   }
 );

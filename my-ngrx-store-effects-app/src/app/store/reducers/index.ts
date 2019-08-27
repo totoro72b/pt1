@@ -6,6 +6,7 @@ import {
 } from "@angular/router";
 import { ActionReducerMap, createFeatureSelector } from "@ngrx/store";
 
+// define our own routerState type
 export interface RouterStateUrl {
   url: string;
   queryParams: Params;
@@ -13,16 +14,19 @@ export interface RouterStateUrl {
 }
 
 export interface State {
-  routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
+  myRouterReducer: fromRouter.RouterReducerState<RouterStateUrl>;
 }
 
 export const reducers: ActionReducerMap<State> = {
-  routerReducer: fromRouter.routerReducer
+  // so we're using ngrx's router reducer here out of the box
+  myRouterReducer: fromRouter.routerReducer
 };
 
+// create a feature selector to grab router state
+// note the key 'routerReducer' matches the one defined in reducers above
 export const getRouterState = createFeatureSelector<
   fromRouter.RouterReducerState<RouterStateUrl>
->("routerReducer");
+>("myRouterReducer");
 
 // custom serializer
 export class CustomSerializer
