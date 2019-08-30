@@ -16,6 +16,7 @@ export function reducer(
   state = initialState,
   action: pizzaActions.PizzasAction
 ): PizzaState {
+  console.log("pizza action", action);
   switch (action.type) {
     case pizzaActions.LOAD_PIZZAS: {
       return { ...state, loaded: false, loading: true };
@@ -37,7 +38,8 @@ export function reducer(
       return { ...state, loaded: true, loading: false, entities: newEntities };
     }
   }
-  return initialState;
+  // return state as is on unrecognized actions
+  return state;
 }
 
 // todo why isn't this exported in reducers/index.ts like the rest?

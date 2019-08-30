@@ -25,12 +25,10 @@ export const getSelectedPizza = createSelector(
   getPizzasEntities,
   fromRoot.getRouterState,
   (entities, router): Pizza => {
-    // pass in current id from teh router state
     // todo what if router.state is falsy?
     const result = router.state && entities[router.state.params.pizzaId];
-    console.log("router.state=", router.state, "result=", result);
-    console.log("entities", entities);
-    return router.state && entities[router.state.params.pizzaId];
+    console.log("get selected pizza result", result);
+    return result;
   }
 );
 

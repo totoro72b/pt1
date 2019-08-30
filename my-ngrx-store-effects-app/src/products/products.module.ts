@@ -24,11 +24,11 @@ export const ROUTES: Routes = [
     component: fromContainers.ProductsComponent
   },
   {
-    path: "new",
+    path: ":pizzaId",
     component: fromContainers.ProductItemComponent
   },
   {
-    path: ":pizzaId",
+    path: "new",
     component: fromContainers.ProductItemComponent
   }
 ];
