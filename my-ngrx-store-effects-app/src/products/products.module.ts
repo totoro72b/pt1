@@ -40,7 +40,8 @@ export const ROUTES: Routes = [
     HttpClientModule,
     RouterModule.forChild(ROUTES),
     //todo is this "registering" reducers?
-    StoreModule.forFeature("ducks", reducers),
+    // lazy loading products module
+    StoreModule.forFeature("products", reducers),
     EffectsModule.forFeature(effects)
   ],
   providers: [...fromServices.services],

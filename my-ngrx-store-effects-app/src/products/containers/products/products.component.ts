@@ -37,6 +37,7 @@ export class ProductsComponent implements OnInit {
     // todo what's a memoized selector?
     this.pizzas$ = this.store.select(fromStore.getAllPizzas);
     this.store.dispatch(new fromStore.LoadPizzas(null));
+    this.store.dispatch(new fromStore.LoadToppings());
     this.pizzas$.subscribe(x => {
       console.log(x);
     });
