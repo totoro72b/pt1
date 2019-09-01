@@ -39,7 +39,7 @@ export class ProductsComponent implements OnInit {
     this.store.dispatch(new fromStore.LoadPizzas(null));
     this.store.dispatch(new fromStore.LoadToppings());
     this.pizzas$.subscribe(x => {
-      console.log(x);
+      console.log("get all pizzas", x);
     });
   }
 }

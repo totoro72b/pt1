@@ -37,6 +37,28 @@ export function reducer(
 
       return { ...state, loaded: true, loading: false, entities: newEntities };
     }
+
+    // update and create share code
+    case pizzaActions.UPDATE_PIZZA_SUCCESS:
+    case pizzaActions.CREATE_PIZZA_SUCCESS: {
+      const pizza = action.payload;
+      const entities = {
+        ...state.entities,
+        [pizza.id]: pizza
+      };
+      return { ...state, entities };
+    }
+    case pizzaActions.REMOVE_PIZZA_SUCCESS: {
+      const pizza = action.payload;
+      // const entities = Object.keys(state.entities)
+      //   .filter(id => id != pizza.id) // double equal here for string and int comparision
+      //   .reduce((acc, id) => {
+      //     return { ...acc, [id]: state.entities[parseInt(id, 10)] };
+      //   }, state.entities);
+      // wow objects destructuring
+      const { [pizza.id]: removed, ...entities } = state.entities;
+      return { ...state, entities };
+    }
   }
   // return state as is on unrecognized actions
   return state;
