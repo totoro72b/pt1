@@ -1,10 +1,10 @@
 import { Actions, Effect } from "@ngrx/effects";
-import * as pizzasActions from "../actions/pizzas.action";
-import * as fromServies from "../../services";
-import { switchMap, map, catchError } from "rxjs/operators";
+import { switchMap, map, tap, catchError } from "rxjs/operators";
 import { of } from "rxjs/observable/of";
 import { Injectable } from "@angular/core";
-import { effects } from ".";
+import * as fromRoot from "../../../app/store";
+import * as pizzasActions from "../actions/pizzas.action";
+import * as fromServies from "../../services";
 
 // basically talks to service and get stuff and then dispatch success/fail actions
 
@@ -40,6 +40,19 @@ export class PizzasEffects {
       );
     })
   );
+
+  @Effect({ dispatch: false })
+  createPizzaSuccess$ = this.actions$
+    // NOTE this action is also listened for in pizzas.reducer
+    // the reducer will pick it up FIRST, then this effect follows afterwards
+    .ofType(pizzasActions.CREATE_PIZZA_SUCCESS)
+    .pipe(
+      map((action: pizzasActions.CreatePizzaSuccess) => action.payload),
+      tap(pizza => {
+        console.log("got pizza", pizza);
+      }),
+      map(pizza => new fromRoot.Go({ path: ["/products", pizza.id] }))
+    );
 
   @Effect()
   updatePizza$ = this.actions$.ofType(pizzasActions.UPDATE_PIZZA).pipe(
