@@ -41,19 +41,6 @@ export class PizzasEffects {
     })
   );
 
-  @Effect({ dispatch: false })
-  createPizzaSuccess$ = this.actions$
-    // NOTE this action is also listened for in pizzas.reducer
-    // the reducer will pick it up FIRST, then this effect follows afterwards
-    .ofType(pizzasActions.CREATE_PIZZA_SUCCESS)
-    .pipe(
-      map((action: pizzasActions.CreatePizzaSuccess) => action.payload),
-      tap(pizza => {
-        console.log("got pizza", pizza);
-      }),
-      map(pizza => new fromRoot.Go({ path: ["/products", pizza.id] }))
-    );
-
   @Effect()
   updatePizza$ = this.actions$.ofType(pizzasActions.UPDATE_PIZZA).pipe(
     map((action: pizzasActions.UpdatePizza) => action.payload),
@@ -76,4 +63,23 @@ export class PizzasEffects {
       );
     })
   );
+
+  /* navigation effects */
+  // NOTE this action is also listened for in pizzas.reducer
+  // the reducer will pick it up FIRST, then this effect follows afterwards
+  @Effect()
+  createPizzaSuccess$ = this.actions$
+    .ofType(pizzasActions.CREATE_PIZZA_SUCCESS)
+    .pipe(
+      map((action: pizzasActions.CreatePizzaSuccess) => action.payload),
+      map(pizza => new fromRoot.Go({ path: ["/products", pizza.id] }))
+    );
+
+  @Effect()
+  handlePizzaSuccess$ = this.actions$
+    .ofType(
+      pizzasActions.UPDATE_PIZZA_SUCCESS,
+      pizzasActions.REMOVE_PIZZA_SUCCESS
+    )
+    .pipe(map(action => new fromRoot.Go({ path: ["/products"] })));
 }
