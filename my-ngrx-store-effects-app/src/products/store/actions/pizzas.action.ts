@@ -15,14 +15,14 @@ export class LoadPizzas implements Action {
 // dispatched by effects after service returns
 export class LoadPizzasSuccess implements Action {
   readonly type = LOAD_PIZZAS_SUCCESS;
-  constructor(public payload: any) {
+  constructor(public payload: Pizza[]) {
     // this.payload = payload;
   }
 }
 
 export class LoadPizzasFail implements Action {
   readonly type = LOAD_PIZZAS_FAIL;
-  constructor(public payload: Pizza[]) {
+  constructor(public payload: any) {
     // this.payload = payload; // todo apparently not necessary
   }
 }
