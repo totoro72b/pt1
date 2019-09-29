@@ -11,6 +11,8 @@ import { Topping } from "../../models/topping.model";
 @Component({
   selector: "product-item",
   styleUrls: ["product-item.component.scss"],
+  // this disables angular's change detection. we're using observables only whihc comes from the store
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="product-item">
       <pizza-form
