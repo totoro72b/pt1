@@ -22,7 +22,6 @@ export class PizzasEffects {
     // switchmap lets us switch to a new observable
     switchMap(() => {
       return this.pizzaService.getPizzas().pipe(
-        //todo why only needs of for catcherror case?
         map(pizzas => new pizzasActions.LoadPizzasSuccess(pizzas)),
         catchError(error => of(new pizzasActions.LoadPizzasFail(error)))
       );
@@ -34,7 +33,6 @@ export class PizzasEffects {
     map((action: pizzasActions.CreatePizza) => action.payload),
     switchMap(pizza => {
       return this.pizzaService.createPizza(pizza).pipe(
-        // todo double check map interface (it gets the stuff inside hte observable)
         map(pizza => new pizzasActions.CreatePizzaSuccess(pizza)),
         catchError(error => of(new pizzasActions.CreatePizzaFail(error)))
       );
