@@ -11,7 +11,8 @@ const observer = {
   error: (err: any) => console.log("err val:", err),
   complete: () => console.log("complete!")
 };
-const observable = Observable.create((subscriber: any) => {
+// const observable = Observable.create((subscriber: any) => {
+const observable = new Observable((subscriber: any) => {
   subscriber.next("hello");
   subscriber.next("world");
   subscriber.error("uh oh");
