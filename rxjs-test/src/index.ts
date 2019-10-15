@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { Observable, Subscriber } from "rxjs";
 
 /*
  * observers can register up to 3 callbacks.
@@ -31,11 +31,35 @@ observable.subscribe(
     console.log("my sub here", x);
   },
   //error
-  (x: any) => {
-    console.log("err2", x);
-  },
+  // (x: any) => {
+  //   console.log("err2", x);
+  // },
+  null, // can skip the error func like this
   //complete
   () => {
     console.log("complete2");
   }
 );
+
+// observable with an interval emit thing that can be cancelled
+// upon subscriber.complete when you return the func to clearInterval
+const obs = new Observable(subscriber => {
+  let count = 0;
+  const id = setInterval(() => {
+    subscriber.next(count);
+    console.log("id is", id); // id stays the same
+    subscriber.complete();
+    count += 1;
+  }, 500);
+
+  // called upon subscriber complete.
+  // w/o clearInterval, the interval keeps emitting even after subscriber.complete() is called
+  return () => {
+    console.log("return func called");
+    clearInterval(id);
+  };
+});
+
+console.log("before");
+obs.subscribe(observer);
+console.log("after");
