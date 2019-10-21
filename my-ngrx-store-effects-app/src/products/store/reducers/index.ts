@@ -1,4 +1,3 @@
-// export * from "./pizzas.reducer";
 import * as fromPizzas from "./pizzas.reducer";
 import * as fromToppings from "./toppings.reducer";
 import { ActionReducerMap, createFeatureSelector } from "@ngrx/store";

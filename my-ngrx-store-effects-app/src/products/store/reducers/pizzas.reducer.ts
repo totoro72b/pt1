@@ -65,6 +65,11 @@ export function reducer(
 }
 
 // todo why isn't this exported in reducers/index.ts like the rest?
+// because we don't want to introduce these into the module level
+// checkout pizzas.selector.ts, where it imports using 2 different levels as the follows
+// import * as fromFeature from "../reducers";
+// import * as fromPizzas from "../reducers/pizzas.reducer";
+
 export const getPizzasEntities = (state: PizzaState) => state.entities;
 export const getPizzasLoading = (state: PizzaState) => state.loading;
 export const getPizzasLoaded = (state: PizzaState) => state.loaded;

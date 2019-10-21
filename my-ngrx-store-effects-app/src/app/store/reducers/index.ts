@@ -1,10 +1,10 @@
-import * as fromRouter from "@ngrx/router-store";
 import {
   Params,
   RouterStateSnapshot,
   ActivatedRouteSnapshot
-} from "@angular/router";
-import { ActionReducerMap, createFeatureSelector } from "@ngrx/store";
+} from '@angular/router';
+import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+import * as fromRouter from '@ngrx/router-store';
 
 // define our own routerState type
 export interface RouterStateUrl {
@@ -26,7 +26,7 @@ export const reducers: ActionReducerMap<State> = {
 // note the key 'routerReducer' matches the one defined in reducers above
 export const getRouterState = createFeatureSelector<
   fromRouter.RouterReducerState<RouterStateUrl>
->("myRouterReducer");
+>('myRouterReducer');
 
 // custom serializer
 export class CustomSerializer
