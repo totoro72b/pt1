@@ -1,17 +1,21 @@
-import { fromEvent, interval } from "rxjs";
-import { mergeMap, map, takeUntil, tap } from "rxjs/operators";
-import { ajax } from "rxjs/ajax";
+import { fromEvent, interval } from 'rxjs';
+import { mergeMap, map, takeUntil, tap, switchMap } from 'rxjs/operators';
+import { ajax } from 'rxjs/ajax';
 
 const interval$ = interval(1000);
-const click$ = fromEvent(document, "click");
+const click$ = fromEvent(document, 'click');
 
+// mergeMap is dangerous.
+// everytime i click, mergeMap subscribes to a *new * inner observable
+// no limit to the number of active inner subscriptions by default
 click$
-  .pipe(
-    // everytime i click, mergeMap subscribes to a *new * inner observable
-    // no limit to the number of activ einner subscriptions by default
-    mergeMap(() => interval(1000))
-  )
-  .subscribe(console.log);
+  .pipe(mergeMap(() => interval(1000)))
+  .subscribe(x => console.log('mergeMap', x));
+
+// a safer default choice of flattening operator: swithcMap
+click$
+  .pipe(switchMap(() => interval(1000)))
+  .subscribe(x => console.log('switchmap', x));
 
 // example of cancelling inner observables on mouseup
 // const mouseup$ = fromEvent(document, "mouseup");
